@@ -1,0 +1,37 @@
+{
+  "name": "rspack-browser-extension-template",
+  "version": "0.0.1",
+  "description": "",
+  "author": "",
+  "scripts": {
+    "build": "pnpm exec rspack build",
+    "prebuild": "node preBuild.js",
+    "postbuild": "node postBuild.js"
+  },
+  "devDependencies": {
+    "@rspack/cli": "^0.1.9",
+    "@types/react": "^18.2.6",
+    "@types/react-dom": "^18.2.4",
+    "@types/webextension-polyfill": "^0.10.0",
+    "@typescript-eslint/eslint-plugin": "^5.59.6",
+    "@typescript-eslint/parser": "^5.59.6",
+    "eslint": "^8.40.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-react": "^7.32.2",
+    "sass": "^1.62.1",
+    "sass-loader": "^13.2.2"
+  },
+  "dependencies": {
+    "@babel/parser": "^7.22.14",
+    "@chakra-ui/icons": "^2.1.0",
+    "@chakra-ui/react": "^2.8.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "framer-motion": "^10.16.2",
+    "octokit": "^3.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "webextension-polyfill": "^0.10.0"
+  },
+  "license": "MIT"
+}
