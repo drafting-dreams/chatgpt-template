@@ -4,7 +4,8 @@
   "name": "Chatgpt Template",
 
   "action": {
-    "default_icon": "logo.png"
+    "default_icon": "logo.png",
+    "default_popup": "popup.html"
   },
   "description": "Template helper for asking ChatGPT or search engine",
   "icons": {

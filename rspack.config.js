@@ -4,6 +4,7 @@ module.exports = {
   entry: {
     content: path.resolve(__dirname, 'src/content/index.tsx'),
     options: path.resolve(__dirname, 'src/options/index.tsx'),
+    popup: path.resolve(__dirname, 'src/popup/index.tsx'),
   },
   output: {
     filename: '[name].js',
@@ -20,6 +21,12 @@ module.exports = {
       {
         chunks: ['options'],
         filename: 'options.html',
+        minify: true,
+        template: './src/index.html',
+      },
+      {
+        chunks: ['popup'],
+        filename: 'popup.html',
         minify: true,
         template: './src/index.html',
       },
