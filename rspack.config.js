@@ -2,7 +2,7 @@ const path = require('path')
 
 module.exports = {
   entry: {
-    content: path.resolve(__dirname, 'src/content/index.tsx'),
+    chatgpt_content: path.resolve(__dirname, 'src/chatgpt_content/index.tsx'),
     options: path.resolve(__dirname, 'src/options/index.tsx'),
     popup: path.resolve(__dirname, 'src/popup/index.tsx'),
   },
@@ -13,8 +13,8 @@ module.exports = {
   builtins: {
     html: [
       {
-        chunks: ['content'],
-        filename: 'content.html',
+        chunks: ['chatgpt_content'],
+        filename: 'chatgpt_content.html',
         minify: true,
         template: './src/index.html',
       },
