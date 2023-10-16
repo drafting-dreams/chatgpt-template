@@ -20,6 +20,10 @@
     {
       "matches": ["https://chat.openai.com/*"],
       "js": ["chatgpt_content.js"]
+    },
+    {
+      "matches": ["https://bard.google.com/chat"],
+      "js": ["bard_content.js"]
     }
   ],
 
