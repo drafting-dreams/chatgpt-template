@@ -77,40 +77,34 @@ function App() {
                     }}
                     onKeyDown={(e) => {
                       if (e.key === 'Enter' && e.altKey) {
+                        const actionBar = document
+                          .querySelector('cib-serp')
+                          ?.shadowRoot?.querySelector('cib-action-bar')?.shadowRoot
                         // Clear Chat history
-                        const aTags = document.getElementsByTagName('a')
-                        for (let tag of aTags) {
-                          if (tag.textContent === 'Clear chat') {
-                            tag.click()
-                          }
-                        }
+                        const clearButton = actionBar?.querySelector(
+                          'button[aria-label="New topic"]',
+                        ) as HTMLButtonElement
+                        clearButton.click()
 
                         // Wait for some time to let the page refresh after clearing the chat history
                         setTimeout(() => {
-                          const promptTextArea = document.getElementById(
-                            'prompt-textarea',
-                          ) as HTMLTextAreaElement
+                          const textarea = actionBar
+                            ?.querySelector('cib-text-input')
+                            ?.shadowRoot?.querySelector('textarea') as HTMLTextAreaElement
+                          textarea.value = templates[index].content
+                            .map((component) =>
+                              component.content ? component.content : component.placeholder,
+                            )
+                            .join('')
 
-                          // To trigger the input event in react
-                          // https://stackoverflow.com/questions/23892547/what-is-the-best-way-to-trigger-change-or-input-event-in-react-js
-                          const nativeInputValueSetter = Object.getOwnPropertyDescriptor(
-                            window.HTMLTextAreaElement.prototype,
-                            'value',
-                          )!.set as any
-                          nativeInputValueSetter.call(
-                            promptTextArea,
-                            templates[index].content
-                              .map((component) =>
-                                component.content ? component.content : component.placeholder,
-                              )
-                              .join(''),
-                          )
-                          promptTextArea.dispatchEvent(new Event('input', { bubbles: true }))
+                          textarea.dispatchEvent(new Event('change'))
 
-                          const sendButton = document.querySelector(
-                            "[data-testid='send-button']",
-                          ) as HTMLButtonElement
-                          sendButton.click()
+                          requestAnimationFrame(() => {
+                            const sendButton = actionBar
+                              ?.querySelector('cib-icon-button[icon="send"]')
+                              ?.shadowRoot?.querySelector('button') as HTMLButtonElement
+                            sendButton.click()
+                          })
 
                           setTemplates(JSON.parse(initTemplates.current) as Template[])
                         }, 150)

@@ -8,16 +8,15 @@ function App() {
       if (!owner || !repo || !path) {
         return
       }
-      const options: any = { owner, repo, path }
-      if (token) {
-        options.auth = token
-      }
-      const ocktokit = new Octokit()
-      ocktokit.request('GET /repos/{owner}/{repo}/contents/{path}', options).then((res) => {
-        // @ts-expect-error For us, the returned type is not an Array
-        const templates = atob(res.data.content)
-        browser.storage.local.set({ templates })
-      })
+
+      const ocktokit = token ? new Octokit({ auth: token }) : new Octokit()
+      ocktokit
+        .request('GET /repos/{owner}/{repo}/contents/{path}', { owner, repo, path })
+        .then((res) => {
+          // @ts-expect-error For us, the returned type is not an Array
+          const templates = atob(res.data.content)
+          browser.storage.local.set({ templates })
+        })
     })
   }
 

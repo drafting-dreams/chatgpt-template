@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react'
 import { parse } from '@babel/parser'
 import browser from 'webextension-polyfill'
-import { formatCamel } from './utils'
+import { formatCamel } from '../utils'
 
 type Template = {
   name: string

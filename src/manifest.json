@@ -18,12 +18,16 @@
   "options_page": "options.html",
   "content_scripts": [
     {
-      "matches": ["https://chat.openai.com/*"],
-      "js": ["chatgpt_content.js"]
+      "matches": ["https://www.bing.com/search?q=Bing+AI&showconv=1*"],
+      "js": ["bing_content.js"]
     },
     {
       "matches": ["https://bard.google.com/chat"],
       "js": ["bard_content.js"]
+    },
+    {
+      "matches": ["https://chat.openai.com/*"],
+      "js": ["chatgpt_content.js"]
     }
   ],
 
