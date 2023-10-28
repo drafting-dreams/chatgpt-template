@@ -22,7 +22,7 @@
       "js": ["bing_content.js"]
     },
     {
-      "matches": ["https://bard.google.com/chat"],
+      "matches": ["https://bard.google.com/chat/*"],
       "js": ["bard_content.js"]
     },
     {

@@ -1,4 +1,4 @@
-export function formatCamel(input: string, keepCase: boolean = true) {
+function formatCamel(input: string, keepCase: boolean = true) {
   // Use a regular expression to split the input string at each uppercase letter
   // followed by a lowercase letter, digit, or underscore.
   const words = input.split(/(?=[A-Z][a-z0-9_])/)
@@ -19,3 +19,5 @@ export function formatCamel(input: string, keepCase: boolean = true) {
 
   return sentence
 }
+
+export { formatCamel }
