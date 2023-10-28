@@ -100,9 +100,9 @@ function App() {
                           textarea.dispatchEvent(new Event('change'))
 
                           requestAnimationFrame(() => {
-                            const sendButton = actionBar
-                              ?.querySelector('cib-icon-button[icon="send"]')
-                              ?.shadowRoot?.querySelector('button') as HTMLButtonElement
+                            const sendButton = actionBar?.querySelector(
+                              'button[description="Submit"]',
+                            ) as HTMLButtonElement
                             sendButton.click()
                           })
 
