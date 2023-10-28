@@ -16,10 +16,13 @@ function initialize() {
   if (chatWindow) {
     const extensionRoot = document.createElement('div')
     extensionRoot.id = 'bing-template'
-    extensionRoot.style.width = '350px'
-    extensionRoot.style.padding = '70px 0 40px'
-    extensionRoot.style.position = 'sticky'
-    extensionRoot.style.top = '0'
+    extensionRoot.style.cssText = `
+      width: 350px;
+      padding: 70px 0 40px;
+      position: sticky;
+      top: 0;
+      flex-shrink: 0;
+    `
     chatWindow?.appendChild(extensionRoot)
 
     // The cache and CacheProvider are here to solve the issue that
