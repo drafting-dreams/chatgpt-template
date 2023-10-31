@@ -19,6 +19,7 @@ type Template = {
 }
 
 function App() {
+  const [inComposition, setInComposition] = useState(false)
   const [templates, setTemplates] = useState<Template[]>([])
   const initTemplates = useRef('')
   useEffect(() => {
@@ -45,6 +46,27 @@ function App() {
     })
   }, [])
 
+  /**
+   *
+   * @param i The index of template
+   *
+   * @param j The index of the content in that template
+   *
+   * @param value new content value for the input fields
+   *
+   */
+  const handleChange = (i: number, j: number, value: string) => {
+    const newTemplates = [...templates]
+    const newTemplate = { ...newTemplates[i] }
+    const newContent = [...newTemplate.content]
+    newContent[j] = {
+      ...newContent[j],
+      content: value,
+    }
+    newTemplates[i].content = newContent
+    setTemplates(newTemplates)
+  }
+
   return (
     <ChakraProvider>
       <Accordion allowToggle color={'rgb(236, 236, 241)'}>
@@ -65,18 +87,12 @@ function App() {
                     value={content.content ?? ''}
                     placeholder={content.placeholder}
                     onChange={(e) => {
-                      const newTemplates = [...templates]
-                      const newTemplate = { ...newTemplates[index] }
-                      const newContent = [...newTemplate.content]
-                      newContent[templateIndex] = {
-                        ...newContent[templateIndex],
-                        content: e.currentTarget.value,
-                      }
-                      newTemplates[index].content = newContent
-                      setTemplates(newTemplates)
+                      handleChange(index, templateIndex, e.currentTarget.value)
                     }}
                     onKeyDown={(e) => {
                       if (e.key === 'Enter' && e.altKey) {
+                        handleChange(index, templateIndex, `${content.content ?? ''}\n`)
+                      } else if (e.key === 'Enter' && !inComposition && !e.altKey) {
                         // Clear Chat history
                         const aTags = document.getElementsByTagName('a')
                         for (let tag of aTags) {
@@ -115,6 +131,12 @@ function App() {
                           setTemplates(JSON.parse(initTemplates.current) as Template[])
                         }, 150)
                       }
+                    }}
+                    onCompositionStart={() => {
+                      setInComposition(true)
+                    }}
+                    onCompositionEnd={() => {
+                      setInComposition(false)
                     }}
                   />
                 ) : (
