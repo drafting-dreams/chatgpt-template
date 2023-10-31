@@ -2,7 +2,35 @@ import { createRoot } from 'react-dom/client'
 import createCache from '@emotion/cache'
 import { CacheProvider } from '@emotion/react'
 import { initializeExtension } from '../utils'
-import App from './App'
+import App from '../content/App'
+
+const handleSubmit = (value: string) => {
+  const actionBar = document
+    .querySelector('cib-serp')
+    ?.shadowRoot?.querySelector('cib-action-bar')?.shadowRoot
+  // Clear Chat history
+  const clearButton = actionBar?.querySelector(
+    'button[aria-label="New topic"]',
+  ) as HTMLButtonElement
+  clearButton.click()
+
+  // Wait for some time to let the page refresh after clearing the chat history
+  setTimeout(() => {
+    const textarea = actionBar
+      ?.querySelector('cib-text-input')
+      ?.shadowRoot?.querySelector('textarea') as HTMLTextAreaElement
+    textarea.value = value
+
+    textarea.dispatchEvent(new Event('change'))
+
+    requestAnimationFrame(() => {
+      const sendButton = actionBar?.querySelector(
+        'button[description="Submit"]',
+      ) as HTMLButtonElement
+      sendButton.click()
+    })
+  }, 150)
+}
 
 const extensionContainerSelector = () =>
   document
@@ -32,7 +60,7 @@ const initialization = (container: Element) => {
   })
   createRoot(extensionRoot).render(
     <CacheProvider value={cache}>
-      <App />
+      <App onSubmit={handleSubmit} />
     </CacheProvider>,
   )
 }

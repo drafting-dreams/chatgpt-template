@@ -18,7 +18,11 @@ type Template = {
   content: { type: number; content?: string; placeholder?: string }[]
 }
 
-function App() {
+type Props = {
+  onSubmit: (value: string) => void
+}
+
+function App({ onSubmit }: Props) {
   const [inComposition, setInComposition] = useState(false)
   const [templates, setTemplates] = useState<Template[]>([])
   const initTemplates = useRef('')
@@ -93,37 +97,13 @@ function App() {
                       if (e.key === 'Enter' && e.altKey) {
                         handleChange(index, templateIndex, `${content.content ?? ''}\n`)
                       } else if (e.key === 'Enter' && !inComposition && !e.altKey) {
-                        const actionBar = document
-                          .querySelector('cib-serp')
-                          ?.shadowRoot?.querySelector('cib-action-bar')?.shadowRoot
-                        // Clear Chat history
-                        const clearButton = actionBar?.querySelector(
-                          'button[aria-label="New topic"]',
-                        ) as HTMLButtonElement
-                        clearButton.click()
-
-                        // Wait for some time to let the page refresh after clearing the chat history
-                        setTimeout(() => {
-                          const textarea = actionBar
-                            ?.querySelector('cib-text-input')
-                            ?.shadowRoot?.querySelector('textarea') as HTMLTextAreaElement
-                          textarea.value = templates[index].content
-                            .map((component) =>
-                              component.content ? component.content : component.placeholder,
-                            )
-                            .join('')
-
-                          textarea.dispatchEvent(new Event('change'))
-
-                          requestAnimationFrame(() => {
-                            const sendButton = actionBar?.querySelector(
-                              'button[description="Submit"]',
-                            ) as HTMLButtonElement
-                            sendButton.click()
-                          })
-
-                          setTemplates(JSON.parse(initTemplates.current) as Template[])
-                        }, 150)
+                        const value = templates[index].content
+                          .map((component) =>
+                            component.content ? component.content : component.placeholder,
+                          )
+                          .join('')
+                        onSubmit(value)
+                        setTemplates(JSON.parse(initTemplates.current) as Template[])
                       }
                     }}
                     onCompositionStart={() => {
