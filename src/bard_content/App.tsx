@@ -12,6 +12,7 @@ import {
 import { parse } from '@babel/parser'
 import browser from 'webextension-polyfill'
 import { formatCamel } from '../utils'
+import { injectScript } from './insertScript'
 
 type Template = {
   name: string
@@ -78,41 +79,35 @@ function App() {
                     onKeyDown={(e) => {
                       if (e.key === 'Enter' && e.altKey) {
                         // Clear Chat history
-                        const aTags = document.getElementsByTagName('a')
-                        for (let tag of aTags) {
-                          if (tag.textContent === 'Clear chat') {
-                            tag.click()
-                          }
-                        }
+                        const sendButton = document.querySelector(
+                          "[data-test-id='new-chat']",
+                        ) as HTMLButtonElement
+                        sendButton.click()
 
                         // Wait for some time to let the page refresh after clearing the chat history
                         setTimeout(() => {
                           const promptTextArea = document.getElementById(
                             'prompt-textarea',
                           ) as HTMLTextAreaElement
+                          const value = templates[index].content
+                            .map((component) =>
+                              component.content ? component.content : component.placeholder,
+                            )
+                            .join('')
 
-                          // To trigger the input event in react
-                          // https://stackoverflow.com/questions/23892547/what-is-the-best-way-to-trigger-change-or-input-event-in-react-js
-                          const nativeInputValueSetter = Object.getOwnPropertyDescriptor(
-                            window.HTMLTextAreaElement.prototype,
-                            'value',
-                          )!.set as any
-                          nativeInputValueSetter.call(
-                            promptTextArea,
-                            templates[index].content
-                              .map((component) =>
-                                component.content ? component.content : component.placeholder,
-                              )
-                              .join(''),
-                          )
-                          promptTextArea.dispatchEvent(new Event('input', { bubbles: true }))
+                          setTimeout(() => {
+                            ;(document.querySelector('.ql-editor') as HTMLDivElement).focus()
+                            injectScript(browser.runtime.getURL('/bard_helper.js'), value).then(
+                              () => {
+                                const sendButton = document.querySelector(
+                                  '[aria-label="Send message"]',
+                                ) as HTMLButtonElement
+                                sendButton.click()
 
-                          const sendButton = document.querySelector(
-                            "[data-testid='send-button']",
-                          ) as HTMLButtonElement
-                          sendButton.click()
-
-                          setTemplates(JSON.parse(initTemplates.current) as Template[])
+                                setTemplates(JSON.parse(initTemplates.current) as Template[])
+                              },
+                            )
+                          }, 20)
                         }, 150)
                       }
                     }}

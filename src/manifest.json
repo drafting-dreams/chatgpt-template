@@ -30,6 +30,12 @@
       "js": ["chatgpt_content.js"]
     }
   ],
+  "web_accessible_resources": [
+    {
+      "resources": ["bard_helper.js"],
+      "matches": ["https://bard.google.com/*"]
+    }
+  ],
 
   "permissions": ["storage"]
 }
