@@ -97,6 +97,7 @@ function App({ onSubmit }: Props) {
                       if (e.key === 'Enter' && e.altKey) {
                         handleChange(index, templateIndex, `${content.content ?? ''}\n`)
                       } else if (e.key === 'Enter' && !inComposition && !e.altKey) {
+                        e.preventDefault()
                         const value = templates[index].content
                           .map((component) =>
                             component.content ? component.content : component.placeholder,
