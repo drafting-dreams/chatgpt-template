@@ -49,6 +49,16 @@ const initialization = (container: Element) => {
       flex-shrink: 0;
     `
 
+  const rencentActivitySideBar = document
+    .querySelector('cib-serp')
+    ?.shadowRoot?.querySelector('cib-conversation')
+    ?.querySelector('cib-side-panel')
+  if (rencentActivitySideBar) {
+    // @ts-expect-error
+    rencentActivitySideBar.style.display = 'none'
+    extensionRoot.style.paddingTop = '1px'
+  }
+
   container.appendChild(extensionRoot)
 
   // The cache and CacheProvider are here to solve the issue that
