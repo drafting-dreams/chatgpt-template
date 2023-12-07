@@ -4,11 +4,7 @@ import App from '../content/App'
 const handleSubmit = (value: string) => {
   // Clear Chat history
   const aTags = document.getElementsByTagName('a')
-  for (let tag of aTags) {
-    if (tag.textContent === 'Clear chat') {
-      tag.click()
-    }
-  }
+  aTags[0].click()
 
   // Wait for some time to let the page refresh after clearing the chat history
   setTimeout(() => {
