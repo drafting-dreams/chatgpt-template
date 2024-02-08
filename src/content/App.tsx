@@ -8,10 +8,22 @@ import {
   AccordionIcon,
   AccordionPanel,
   Textarea,
+  extendTheme,
 } from '@chakra-ui/react'
 import { parse } from '@babel/parser'
 import browser from 'webextension-polyfill'
 import { formatCamel } from '../utils'
+
+// https://stackoverflow.com/questions/69711877/chakra-ui-removing-default-background-color
+const theme = extendTheme({
+  styles: {
+    global: () => ({
+      body: {
+        bg: '',
+      },
+    }),
+  },
+})
 
 type Template = {
   name: string
@@ -72,7 +84,7 @@ function App({ onSubmit }: Props) {
   }
 
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <Accordion allowToggle color={'rgb(236, 236, 241)'}>
         {templates.map((template, index) => (
           <AccordionItem>
