@@ -22,7 +22,7 @@
       "js": ["bing_content.js"]
     },
     {
-      "matches": ["https://bard.google.com/*"],
+      "matches": ["https://gemini.google.com/*"],
       "js": ["bard_content.js"]
     },
     {
@@ -33,7 +33,7 @@
   "web_accessible_resources": [
     {
       "resources": ["bard_helper.js"],
-      "matches": ["https://bard.google.com/*"]
+      "matches": ["https://gemini.google.com/*"]
     }
   ],
 

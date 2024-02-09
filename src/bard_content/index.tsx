@@ -6,7 +6,9 @@ import browser from 'webextension-polyfill'
 
 const handleSubmit = (value: string) => {
   // Clear Chat history
-  const sendButton = document.querySelector("[data-test-id='new-chat']") as HTMLButtonElement
+  const sendButton = document
+    .querySelector("[data-test-id='new-chat-button']")
+    ?.querySelector('button') as HTMLButtonElement
   sendButton.click()
 
   // Wait for some time to let the page refresh after clearing the chat history
