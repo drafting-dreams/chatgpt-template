@@ -18,7 +18,7 @@
   "options_page": "options.html",
   "content_scripts": [
     {
-      "matches": ["https://www.bing.com/search?*&showconv=1*"],
+      "matches": ["https://www.bing.com/chat*", "https://www.bing.com/search*showconv=1"],
       "js": ["bing_content.js"]
     },
     {
