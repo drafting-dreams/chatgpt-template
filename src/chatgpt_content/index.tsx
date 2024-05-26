@@ -19,7 +19,9 @@ const handleSubmit = (value: string) => {
     nativeInputValueSetter.call(promptTextArea, value)
     promptTextArea.dispatchEvent(new Event('input', { bubbles: true }))
 
-    const sendButton = document.querySelector("[data-testid='send-button']") as HTMLButtonElement
+    const sendButton = document.querySelector(
+      "[data-testid='fruitjuice-send-button']",
+    ) as HTMLButtonElement
     sendButton.click()
   }, 150)
 }
