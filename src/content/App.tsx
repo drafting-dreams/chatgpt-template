@@ -16,12 +16,8 @@ import { formatCamel } from '../utils'
 
 // https://stackoverflow.com/questions/69711877/chakra-ui-removing-default-background-color
 const theme = extendTheme({
-  styles: {
-    global: () => ({
-      body: {
-        bg: '',
-      },
-    }),
+  config: {
+    useSystemColorMode: true,
   },
 })
 
@@ -85,7 +81,7 @@ function App({ onSubmit }: Props) {
 
   return (
     <ChakraProvider theme={theme}>
-      <Accordion allowToggle color={'rgb(236, 236, 241)'}>
+      <Accordion allowToggle>
         {templates.map((template, index) => (
           <AccordionItem>
             <h2>
