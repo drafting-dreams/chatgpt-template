@@ -1,4 +1,6 @@
 import { createRoot } from 'react-dom/client'
+import createCache from '@emotion/cache'
+import { CacheProvider } from '@emotion/react'
 import App from '../content/App'
 
 const handleSubmit = (value: string) => {
@@ -26,9 +28,20 @@ const handleSubmit = (value: string) => {
   }, 150)
 }
 
-const chatWindow = document.getElementById('__next')?.querySelector('.w-full.h-full')
 const extensionRoot = document.createElement('div')
 extensionRoot.id = 'chatgpt-template'
 extensionRoot.style.width = '350px'
-chatWindow?.appendChild(extensionRoot)
-createRoot(extensionRoot).render(<App onSubmit={handleSubmit} />)
+const cache = createCache({
+  key: 'css',
+  container: extensionRoot,
+})
+
+setTimeout(() => {
+  const chatWindow = document.querySelector('.w-full.h-full')
+  chatWindow?.appendChild(extensionRoot)
+  createRoot(extensionRoot).render(
+    <CacheProvider value={cache}>
+      <App onSubmit={handleSubmit} />
+    </CacheProvider>,
+  )
+}, 1000)
