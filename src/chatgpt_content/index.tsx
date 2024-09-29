@@ -5,27 +5,19 @@ import App from '../content/App'
 
 const handleSubmit = (value: string) => {
   // Clear Chat history
-  const aTags = document.getElementsByTagName('a')
-  aTags[0].click()
+  ;(document.querySelector("[data-testid='create-new-chat-button']") as HTMLButtonElement)?.click()
 
   // Wait for some time to let the page refresh after clearing the chat history
   setTimeout(() => {
-    const promptTextArea = document.getElementById('prompt-textarea') as HTMLTextAreaElement
+    const promptTextArea = document.querySelector("[contenteditable='true']")
 
-    // To trigger the input event in react
-    // https://stackoverflow.com/questions/23892547/what-is-the-best-way-to-trigger-change-or-input-event-in-react-js
-    const nativeInputValueSetter = Object.getOwnPropertyDescriptor(
-      window.HTMLTextAreaElement.prototype,
-      'value',
-    )!.set as any
-    nativeInputValueSetter.call(promptTextArea, value)
-    promptTextArea.dispatchEvent(new Event('input', { bubbles: true }))
+    if (promptTextArea) promptTextArea.innerHTML = value
 
-    const sendButton = document.querySelector(
-      "[data-testid='fruitjuice-send-button']",
-    ) as HTMLButtonElement
-    sendButton.click()
-  }, 150)
+    setTimeout(() => {
+      const sendButton = document.querySelector("[data-testid='send-button']") as HTMLButtonElement
+      sendButton.click()
+    }, 200)
+  }, 800)
 }
 
 const extensionRoot = document.createElement('div')
