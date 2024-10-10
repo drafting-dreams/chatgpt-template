@@ -3,6 +3,7 @@ import createCache from '@emotion/cache'
 import { CacheProvider } from '@emotion/react'
 import { initializeExtension } from '../utils'
 import App from '../content/App'
+import React from 'react'
 
 const handleSubmit = (value: string) => {
   const actionBar = document

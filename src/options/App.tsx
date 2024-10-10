@@ -1,6 +1,7 @@
 import { ChakraProvider, Button, Link, Input, Text } from '@chakra-ui/react'
 import { useState, useEffect } from 'react'
 import browser from 'webextension-polyfill'
+import React from 'react'
 
 function App() {
   const [repoInfo, setRepoInfo] = useState('')

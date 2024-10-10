@@ -1,4 +1,5 @@
 const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   entry: {
@@ -12,33 +13,42 @@ module.exports = {
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
+    publicPath: '',
   },
-  builtins: {
-    html: [
-      {
-        chunks: ['options'],
-        filename: 'options.html',
-        minify: true,
-        template: './src/index.html',
-      },
-      {
-        chunks: ['popup'],
-        filename: 'popup.html',
-        minify: true,
-        template: './src/index.html',
-      },
-    ],
+  plugins: [
+    new HtmlWebpackPlugin({
+      chunks: ['options'],
+      filename: 'options.html',
+      minify: true,
+      template: './src/index.html',
+    }),
+    new HtmlWebpackPlugin({
+      chunks: ['popup'],
+      filename: 'popup.html',
+      minify: true,
+      template: './src/index.html',
+    }),
+  ],
+  experiments: {
+    css: true,
+  },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js'],
   },
   module: {
     rules: [
       {
-        test: /\.scss$/,
-        use: [
-          {
-            loader: 'sass-loader',
+        test: /\.tsx?$/,
+        exclude: [/node_modules/],
+        loader: 'builtin:swc-loader',
+        options: {
+          jsc: {
+            parser: {
+              syntax: 'typescript',
+            },
           },
-        ],
-        type: 'css/module',
+        },
+        type: 'javascript/auto',
       },
     ],
   },

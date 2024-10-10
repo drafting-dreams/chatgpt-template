@@ -2,6 +2,7 @@ import { createRoot } from 'react-dom/client'
 import createCache from '@emotion/cache'
 import { CacheProvider } from '@emotion/react'
 import App from '../content/App'
+import React from 'react'
 
 const handleSubmit = (value: string) => {
   // Clear Chat history

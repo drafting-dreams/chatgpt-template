@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import React from 'react'
 import {
   Box,
   ChakraProvider,
@@ -13,6 +14,8 @@ import {
 import { parse } from '@babel/parser'
 import browser from 'webextension-polyfill'
 import { formatCamel } from '../utils'
+
+import './style.css'
 
 // https://stackoverflow.com/questions/69711877/chakra-ui-removing-default-background-color
 const theme = extendTheme({

@@ -27,7 +27,8 @@
     },
     {
       "matches": ["https://chatgpt.com/*"],
-      "js": ["chatgpt_content.js"]
+      "js": ["chatgpt_content.js"],
+      "css": ["chatgpt_content.css"]
     }
   ],
   "web_accessible_resources": [

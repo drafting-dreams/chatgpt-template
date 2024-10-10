@@ -3,6 +3,7 @@ import { initializeExtension } from '../utils'
 import App from '../content/App'
 import { injectScript } from './insertScript'
 import browser from 'webextension-polyfill'
+import React from 'react'
 
 const handleSubmit = (value: string) => {
   // Clear Chat history
