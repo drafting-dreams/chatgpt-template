@@ -3,12 +3,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   entry: {
-    bard_content: path.resolve(__dirname, 'src/bard_content/index.tsx'),
-    bard_helper: path.resolve(__dirname, 'src/bard_content/helper.ts'),
-    bing_content: path.resolve(__dirname, 'src/bing_content/index.tsx'),
-    chatgpt_content: path.resolve(__dirname, 'src/chatgpt_content/index.tsx'),
+    background: path.resolve(__dirname, 'src/background.ts'),
     options: path.resolve(__dirname, 'src/options/index.tsx'),
-    popup: path.resolve(__dirname, 'src/popup/index.tsx'),
+    side_panel: path.resolve(__dirname, 'src/side_panel/index.tsx'),
   },
   output: {
     filename: '[name].js',
@@ -23,8 +20,8 @@ module.exports = {
       template: './src/index.html',
     }),
     new HtmlWebpackPlugin({
-      chunks: ['popup'],
-      filename: 'popup.html',
+      chunks: ['side_panel'],
+      filename: 'side_panel.html',
       minify: true,
       template: './src/index.html',
     }),

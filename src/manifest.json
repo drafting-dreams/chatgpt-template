@@ -4,8 +4,10 @@
   "name": "Chatgpt Template",
 
   "action": {
-    "default_icon": "logo.png",
-    "default_popup": "popup.html"
+    "default_icon": "logo.png"
+  },
+  "background": {
+    "service_worker": "background.js"
   },
   "description": "Template helper for asking ChatGPT or search engine",
   "icons": {
@@ -16,27 +18,8 @@
   },
 
   "options_page": "options.html",
-  "content_scripts": [
-    {
-      "matches": ["https://www.bing.com/chat*", "https://www.bing.com/search*showconv=1"],
-      "js": ["bing_content.js"]
-    },
-    {
-      "matches": ["https://gemini.google.com/*"],
-      "js": ["bard_content.js"]
-    },
-    {
-      "matches": ["https://chatgpt.com/*"],
-      "js": ["chatgpt_content.js"],
-      "css": ["chatgpt_content.css"]
-    }
-  ],
-  "web_accessible_resources": [
-    {
-      "resources": ["bard_helper.js"],
-      "matches": ["https://gemini.google.com/*"]
-    }
-  ],
-
-  "permissions": ["storage"]
+  "side_panel": {
+    "default_path": "side_panel.html"
+  },
+  "permissions": ["storage", "sidePanel"]
 }

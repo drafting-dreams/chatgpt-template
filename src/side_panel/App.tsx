@@ -29,11 +29,27 @@ type Template = {
   content: { type: number; content?: string; placeholder?: string }[]
 }
 
-type Props = {
-  onSubmit: (value: string) => void
+function copy(value: string) {
+  const textArea = document.createElement('textarea')
+  textArea.value = value
+  textArea.style.position = 'fixed'
+  document.body.appendChild(textArea)
+  textArea.focus()
+  textArea.select()
+  try {
+    const successful = document.execCommand('copy')
+    if (successful) {
+      console.log('复制成功')
+    } else {
+      console.error('无法复制到剪贴板')
+    }
+  } catch (err) {
+    console.error(`啊哦，出错了！\n${err}`)
+  }
+  document.body.removeChild(textArea)
 }
 
-function App({ onSubmit }: Props) {
+function App() {
   const [inComposition, setInComposition] = useState(false)
   const [templates, setTemplates] = useState<Template[]>([])
   const initTemplates = useRef('')
@@ -56,6 +72,7 @@ function App({ onSubmit }: Props) {
           ),
         }
       })
+      console.log(temp)
       initTemplates.current = JSON.stringify(temp)
       setTemplates(temp)
     })
@@ -115,7 +132,7 @@ function App({ onSubmit }: Props) {
                             component.content ? component.content : component.placeholder,
                           )
                           .join('')
-                        onSubmit(value)
+                        copy(value)
                         setTemplates(JSON.parse(initTemplates.current) as Template[])
                       }
                     }}
