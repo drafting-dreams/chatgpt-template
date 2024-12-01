@@ -86,7 +86,7 @@ function App({ onSubmit }: Props) {
     <ChakraProvider theme={theme}>
       <Accordion allowToggle>
         {templates.map((template, index) => (
-          <AccordionItem>
+          <AccordionItem key={index}>
             <h2>
               <AccordionButton>
                 <Box as="span" flex="1" textAlign="left">
@@ -99,6 +99,7 @@ function App({ onSubmit }: Props) {
               {template.content.map((content, templateIndex) =>
                 content.type ? (
                   <Textarea
+                    key={templateIndex}
                     value={content.content ?? ''}
                     placeholder={content.placeholder}
                     onChange={(e) => {

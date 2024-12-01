@@ -1,6 +1,7 @@
 import { Button, ChakraProvider } from '@chakra-ui/react'
 import browser from 'webextension-polyfill'
 import { Octokit } from 'octokit'
+import React from 'react'
 
 function App() {
   const updateTemplates = () => {
