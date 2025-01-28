@@ -29,6 +29,11 @@
       "matches": ["https://chatgpt.com/*"],
       "js": ["chatgpt_content.js"],
       "css": ["chatgpt_content.css"]
+    },
+    {
+      "matches": ["https://chat.deepseek.com/*"],
+      "js": ["deep_seek_content.js"],
+      "css": ["deep_seek_content.css"]
     }
   ],
   "web_accessible_resources": [

@@ -7,6 +7,7 @@ module.exports = {
     bard_helper: path.resolve(__dirname, 'src/bard_content/helper.ts'),
     bing_content: path.resolve(__dirname, 'src/bing_content/index.tsx'),
     chatgpt_content: path.resolve(__dirname, 'src/chatgpt_content/index.tsx'),
+    deep_seek_content: path.resolve(__dirname, 'src/deep_seek/index.tsx'),
     options: path.resolve(__dirname, 'src/options/index.tsx'),
     popup: path.resolve(__dirname, 'src/popup/index.tsx'),
   },
