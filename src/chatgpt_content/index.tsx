@@ -30,7 +30,7 @@ const cache = createCache({
 })
 
 setTimeout(() => {
-  const chatWindow = document.querySelector('.w-full.h-full')
+  const chatWindow = document.querySelector('.w-full.h-full')?.firstChild
   chatWindow?.appendChild(extensionRoot)
   createRoot(extensionRoot).render(
     <CacheProvider value={cache}>
