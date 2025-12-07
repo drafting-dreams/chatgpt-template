@@ -30,8 +30,10 @@ const cache = createCache({
 })
 
 setTimeout(() => {
-  const chatWindow = document.querySelector('.w-full.h-full')?.firstChild
-  chatWindow?.appendChild(extensionRoot)
+  const containerMain = document.querySelector('.\\@container\\/main')
+  if (containerMain) {
+    containerMain.insertAdjacentElement('afterend', extensionRoot)
+  }
   createRoot(extensionRoot).render(
     <CacheProvider value={cache}>
       <App onSubmit={handleSubmit} />
