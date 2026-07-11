@@ -1,28 +1,15 @@
 import { useEffect, useRef, useState } from 'react'
 import React from 'react'
-import {
-  Box,
-  ChakraProvider,
-  Accordion,
-  AccordionButton,
-  AccordionItem,
-  AccordionIcon,
-  AccordionPanel,
-  Textarea,
-  extendTheme,
-} from '@chakra-ui/react'
 import { parse } from '@babel/parser'
 import browser from 'webextension-polyfill'
 import { formatCamel } from '../utils'
-
-import './style.css'
-
-// https://stackoverflow.com/questions/69711877/chakra-ui-removing-default-background-color
-const theme = extendTheme({
-  config: {
-    useSystemColorMode: true,
-  },
-})
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion'
+import { Textarea } from '@/components/ui/textarea'
 
 type Template = {
   name: string
@@ -83,58 +70,51 @@ function App({ onSubmit }: Props) {
   }
 
   return (
-    <ChakraProvider theme={theme}>
-      <Accordion allowToggle>
-        {templates.map((template, index) => (
-          <AccordionItem key={index}>
-            <h2>
-              <AccordionButton>
-                <Box as="span" flex="1" textAlign="left">
-                  {template.name}
-                </Box>
-                <AccordionIcon />
-              </AccordionButton>
-            </h2>
-            <AccordionPanel>
-              {template.content.map((content, templateIndex) =>
-                content.type ? (
-                  <Textarea
-                    key={templateIndex}
-                    value={content.content ?? ''}
-                    placeholder={content.placeholder}
-                    onChange={(e) => {
-                      handleChange(index, templateIndex, e.currentTarget.value)
-                    }}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' && e.altKey) {
-                        handleChange(index, templateIndex, `${content.content ?? ''}\n`)
-                      } else if (e.key === 'Enter' && !inComposition && !e.altKey) {
-                        e.preventDefault()
-                        const value = templates[index].content
-                          .map((component) =>
-                            component.content ? component.content : component.placeholder,
-                          )
-                          .join('')
-                        onSubmit(value)
-                        setTemplates(JSON.parse(initTemplates.current) as Template[])
-                      }
-                    }}
-                    onCompositionStart={() => {
-                      setInComposition(true)
-                    }}
-                    onCompositionEnd={() => {
-                      setInComposition(false)
-                    }}
-                  />
-                ) : (
-                  <Box whiteSpace="pre-wrap">{content.content}</Box>
-                ),
-              )}
-            </AccordionPanel>
-          </AccordionItem>
-        ))}
-      </Accordion>
-    </ChakraProvider>
+    <Accordion type="single" collapsible className="bg-background px-3 text-foreground">
+      {templates.map((template, index) => (
+        <AccordionItem key={index} value={`item-${index}`}>
+          <AccordionTrigger className="text-left">{template.name}</AccordionTrigger>
+          <AccordionContent className="flex flex-col gap-2">
+            {template.content.map((content, templateIndex) =>
+              content.type ? (
+                <Textarea
+                  key={templateIndex}
+                  value={content.content ?? ''}
+                  placeholder={content.placeholder}
+                  onChange={(e) => {
+                    handleChange(index, templateIndex, e.currentTarget.value)
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && e.altKey) {
+                      handleChange(index, templateIndex, `${content.content ?? ''}\n`)
+                    } else if (e.key === 'Enter' && !inComposition && !e.altKey) {
+                      e.preventDefault()
+                      const value = templates[index].content
+                        .map((component) =>
+                          component.content ? component.content : component.placeholder,
+                        )
+                        .join('')
+                      onSubmit(value)
+                      setTemplates(JSON.parse(initTemplates.current) as Template[])
+                    }
+                  }}
+                  onCompositionStart={() => {
+                    setInComposition(true)
+                  }}
+                  onCompositionEnd={() => {
+                    setInComposition(false)
+                  }}
+                />
+              ) : (
+                <div key={templateIndex} className="whitespace-pre-wrap">
+                  {content.content}
+                </div>
+              ),
+            )}
+          </AccordionContent>
+        </AccordionItem>
+      ))}
+    </Accordion>
   )
 }
 

@@ -1,8 +1,8 @@
 import { createRoot } from 'react-dom/client'
-import createCache from '@emotion/cache'
-import { CacheProvider } from '@emotion/react'
+import browser from 'webextension-polyfill'
 import App from '../content/App'
 import React from 'react'
+import '../globals.css'
 
 function findTextNodeAndParent(root, searchText) {
   const results = []
@@ -53,10 +53,16 @@ const handleSubmit = (value: string) => {
 const extensionRoot = document.createElement('div')
 extensionRoot.id = 'chatgpt-template'
 extensionRoot.style.width = '350px'
-const cache = createCache({
-  key: 'css',
-  container: extensionRoot,
-})
+
+const shadowRoot = extensionRoot.attachShadow({ mode: 'open' })
+
+const styleLink = document.createElement('link')
+styleLink.rel = 'stylesheet'
+styleLink.href = browser.runtime.getURL('deep_seek_content.css')
+shadowRoot.appendChild(styleLink)
+
+const mountPoint = document.createElement('div')
+shadowRoot.appendChild(mountPoint)
 
 setTimeout(() => {
   const wrapper = document.getElementById('root')?.firstElementChild
@@ -65,9 +71,5 @@ setTimeout(() => {
   }
   const chatWindow = wrapper?.lastElementChild
   chatWindow?.appendChild(extensionRoot)
-  createRoot(extensionRoot).render(
-    <CacheProvider value={cache}>
-      <App onSubmit={handleSubmit} />
-    </CacheProvider>,
-  )
+  createRoot(mountPoint).render(<App onSubmit={handleSubmit} />)
 }, 1000)

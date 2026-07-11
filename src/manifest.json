@@ -19,13 +19,22 @@
   "content_scripts": [
     {
       "matches": ["https://chatgpt.com/*"],
-      "js": ["chatgpt_content.js"],
-      "css": ["chatgpt_content.css"]
+      "js": ["chatgpt_content.js"]
     },
     {
       "matches": ["https://chat.deepseek.com/*"],
-      "js": ["deep_seek_content.js"],
-      "css": ["deep_seek_content.css"]
+      "js": ["deep_seek_content.js"]
+    }
+  ],
+
+  "web_accessible_resources": [
+    {
+      "resources": ["chatgpt_content.css"],
+      "matches": ["https://chatgpt.com/*"]
+    },
+    {
+      "resources": ["deep_seek_content.css"],
+      "matches": ["https://chat.deepseek.com/*"]
     }
   ],
 

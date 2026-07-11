@@ -1,7 +1,7 @@
-import { Button, ChakraProvider } from '@chakra-ui/react'
 import browser from 'webextension-polyfill'
 import { Octokit } from 'octokit'
 import React from 'react'
+import { Button } from '@/components/ui/button'
 
 function App() {
   const updateTemplates = () => {
@@ -22,9 +22,9 @@ function App() {
   }
 
   return (
-    <ChakraProvider>
+    <div className="bg-background p-3 text-foreground">
       <Button onClick={updateTemplates}>Update templates</Button>
-    </ChakraProvider>
+    </div>
   )
 }
 

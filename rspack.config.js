@@ -1,5 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { CssExtractRspackPlugin } = require('@rspack/core')
 
 module.exports = {
   entry: {
@@ -26,12 +27,15 @@ module.exports = {
       minify: true,
       template: './src/index.html',
     }),
+    new CssExtractRspackPlugin({
+      filename: '[name].css',
+    }),
   ],
-  experiments: {
-    css: true,
-  },
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+    },
   },
   module: {
     rules: [
@@ -43,9 +47,15 @@ module.exports = {
           jsc: {
             parser: {
               syntax: 'typescript',
+              tsx: true,
             },
           },
         },
+        type: 'javascript/auto',
+      },
+      {
+        test: /\.css$/,
+        use: [CssExtractRspackPlugin.loader, 'css-loader', 'postcss-loader'],
         type: 'javascript/auto',
       },
     ],
