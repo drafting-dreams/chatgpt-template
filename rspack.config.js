@@ -7,6 +7,7 @@ module.exports = {
     chatgpt_content: path.resolve(__dirname, 'src/chatgpt_content/index.tsx'),
     deep_seek_content: path.resolve(__dirname, 'src/deep_seek/index.tsx'),
     claude_content: path.resolve(__dirname, 'src/claude/index.tsx'),
+    grok_content: path.resolve(__dirname, 'src/grok/index.tsx'),
     options: path.resolve(__dirname, 'src/options/index.tsx'),
     popup: path.resolve(__dirname, 'src/popup/index.tsx'),
   },
