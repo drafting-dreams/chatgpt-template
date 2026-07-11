@@ -24,6 +24,10 @@
     {
       "matches": ["https://chat.deepseek.com/*"],
       "js": ["deep_seek_content.js"]
+    },
+    {
+      "matches": ["https://claude.ai/*"],
+      "js": ["claude_content.js"]
     }
   ],
 
@@ -35,6 +39,10 @@
     {
       "resources": ["deep_seek_content.css"],
       "matches": ["https://chat.deepseek.com/*"]
+    },
+    {
+      "resources": ["claude_content.css"],
+      "matches": ["https://claude.ai/*"]
     }
   ],
 

@@ -2,6 +2,8 @@
 
 This is a browser extension that can help you save some commonly used templates of yours to ask chat gpt. So you can easily populate the template the next time when you want to ask a question in the same form.
 
+It works on [ChatGPT](https://chatgpt.com), [DeepSeek](https://chat.deepseek.com) and [Claude](https://claude.ai).
+
 ## How to use it
 
 ### Download and install
