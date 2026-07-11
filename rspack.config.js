@@ -3,8 +3,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   entry: {
-    bard_content: path.resolve(__dirname, 'src/bard_content/index.tsx'),
-    bard_helper: path.resolve(__dirname, 'src/bard_content/helper.ts'),
     chatgpt_content: path.resolve(__dirname, 'src/chatgpt_content/index.tsx'),
     deep_seek_content: path.resolve(__dirname, 'src/deep_seek/index.tsx'),
     options: path.resolve(__dirname, 'src/options/index.tsx'),
