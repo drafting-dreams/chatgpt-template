@@ -41,11 +41,9 @@ const extensionRoot = document.createElement('div')
 extensionRoot.id = 'chatgpt-template'
 extensionRoot.style.cssText = `position:fixed;top:0;right:0;width:${PANEL_WIDTH}px;height:100vh;overflow-y:auto;z-index:2147483647;border-left:1px solid rgba(255,255,255,0.1);`
 
-// claude.ai focuses its own composer on any keystroke via a document-level
-// listener. Keep keyboard events inside our panel so typing here doesn't jump
-// focus back to Claude's input. React's handlers run inside the shadow tree
-// before the event reaches this host, so submitting still works.
-;['keydown', 'keyup', 'keypress', 'beforeinput'].forEach((type) => {
+// Claude handles input at the document level. Keep events from our panel from
+// reaching the page while allowing its textareas to handle them normally.
+;['keydown', 'keyup', 'keypress', 'beforeinput', 'paste'].forEach((type) => {
   extensionRoot.addEventListener(type, (e) => e.stopPropagation())
 })
 
