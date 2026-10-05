@@ -3,52 +3,9 @@ import browser from 'webextension-polyfill'
 import App from '../content/App'
 import React from 'react'
 import '../globals.css'
+import { createSubmitHandler } from './submit'
 
-const handleSubmit = (value: string) => {
-  const newChatButton =
-    document.querySelector<HTMLButtonElement>(
-      "button[data-testid='create-new-chat-button'], button[aria-label='New chat']",
-    ) ||
-    [...document.querySelectorAll<HTMLButtonElement>('button')].find(
-      (button) => button.textContent?.trim() === 'New chat',
-    )
-  newChatButton?.click()
-
-  // Wait for the new-chat composer to render
-  setTimeout(() => {
-    const editor = document.querySelector<HTMLElement>(
-      "[data-composer-markdown][contenteditable='true'], #prompt-textarea[contenteditable='true']",
-    )
-    if (!editor) return
-
-    editor.focus()
-    document.execCommand('selectAll', false)
-    if (!document.execCommand('insertText', false, value)) return
-
-    const send = () => {
-      const button =
-        editor.closest('form')?.querySelector<HTMLButtonElement>("button[type='submit']") ||
-        document.querySelector<HTMLButtonElement>(
-          "button[data-testid='send-button'], button[aria-label='Send'], button[aria-label='Send prompt'], button[aria-label='Send message']",
-        )
-      if (!button || button.disabled || button.getAttribute('aria-disabled') === 'true') return
-
-      observer.disconnect()
-      clearTimeout(timeout)
-      button.click()
-    }
-
-    const observer = new MutationObserver(send)
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true,
-      attributes: true,
-      attributeFilter: ['disabled', 'aria-disabled'],
-    })
-    const timeout = window.setTimeout(() => observer.disconnect(), 3000)
-    requestAnimationFrame(send)
-  }, 800)
-}
+const handleSubmit = createSubmitHandler()
 
 const PANEL_WIDTH = 350
 

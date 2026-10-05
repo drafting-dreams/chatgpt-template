@@ -30,6 +30,6 @@ After setting it up, you will be able to see your templates once you open the ch
 
 As you can see the variable name in your placeholder has become the placeholder for the corresponding field. If you don't intput anything, the template will use the placeholder to ask a question.
 
-To send a question, focus on any input and press (alt/option + Enter).
+To send a question, focus on any input and press Enter. Alt/Option + Enter adds a newline.
 
 If you turn off the chat history of your chatgpt. Each time you send a question, it will clear your chat history first. If chat history is on, it will not clear your history.
